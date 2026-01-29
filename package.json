@@ -1,0 +1,22 @@
+{
+  "name": "it23708662",
+  "version": "1.0.0",
+  "description": "Playwright Automation - Singlish to Sinhala Translator Testing",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rasanjana-61/IT23708662.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rasanjana-61/IT23708662/issues"
+  },
+  "homepage": "https://github.com/Rasanjana-61/IT23708662#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.0",
+    "@types/node": "^25.1.0"
+  }
+}
