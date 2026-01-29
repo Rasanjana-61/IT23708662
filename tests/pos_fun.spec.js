@@ -20,7 +20,7 @@ test.describe('Positive Functional Test Cases (Pos_Fun)', () => {
   test('Pos_Fun_0002 - Compound sentence', async ({ page }) => {
     await page.goto(URL);
     await page.locator('textarea').first()
-      .fill('assignment eka iwara karala mama nidagannava');
+      .fill('assignment eka ivara karala mama nidagannava');
     await page.waitForTimeout(2000);
     expect(await hasSinhalaText(page)).toBeTruthy();
   });
@@ -92,7 +92,7 @@ test.describe('Positive Functional Test Cases (Pos_Fun)', () => {
   test('Pos_Fun_0011 - Informal greeting question', async ({ page }) => {
     await page.goto(URL);
     await page.locator('textarea').first()
-      .fill('kohomadha machan, vaeda iwaradha?');
+      .fill('kohomadha machan, vaeda ivaradha?');
     await page.waitForTimeout(2000);
     expect(await hasSinhalaText(page)).toBeTruthy();
   });
@@ -124,7 +124,7 @@ test.describe('Positive Functional Test Cases (Pos_Fun)', () => {
   test('Pos_Fun_0015 - Mixed English technical term', async ({ page }) => {
     await page.goto(URL);
     await page.locator('textarea').first()
-      .fill('mata java code eka email karanna puluvandha?');
+      .fill('mata JAVA code eka email karanna puluvandha?');
     await page.waitForTimeout(2000);
     expect(await hasSinhalaText(page)).toBeTruthy();
   });
@@ -132,7 +132,7 @@ test.describe('Positive Functional Test Cases (Pos_Fun)', () => {
   test('Pos_Fun_0016 - Brand/place name', async ({ page }) => {
     await page.goto(URL);
     await page.locator('textarea').first()
-      .fill('api kfc eken kaema kamu');
+      .fill('api KFC eken kaema kamu');
     await page.waitForTimeout(2000);
     expect(await hasSinhalaText(page)).toBeTruthy();
   });
@@ -140,7 +140,7 @@ test.describe('Positive Functional Test Cases (Pos_Fun)', () => {
   test('Pos_Fun_0017 - Repeated word expression', async ({ page }) => {
     await page.goto(URL);
     await page.locator('textarea').first()
-      .fill('anee manda eya heena wela heena wela katha kala');
+      .fill('anee mandha eyaa hinaa velaa  kathaa kalaa');
     await page.waitForTimeout(2000);
     expect(await hasSinhalaText(page)).toBeTruthy();
   });
@@ -164,7 +164,7 @@ test.describe('Positive Functional Test Cases (Pos_Fun)', () => {
   test('Pos_Fun_0020 - Long mixed content paragraph', async ({ page }) => {
     await page.goto(URL);
     await page.locator('textarea').first().fill(
-      'ada havasa 5 ta meeting ekak thiyenava. oyaata puluwannam enna. neththam record eka ahanna. api project eka gena katha karanava'
+      'adha havasa 5 ta meeting ekak thiyenavaa. oyaata puluwannam enna. neththam record eka ahanna. api project eka gena katha karanavaa'
     );
     await page.waitForTimeout(3000);
     expect(await hasSinhalaText(page)).toBeTruthy();
