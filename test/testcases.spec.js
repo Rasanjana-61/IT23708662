@@ -15,18 +15,15 @@ async function getSinhalaTranslation(page, singlishText) {
 }
 
 // ================= Result Checker =================
-function checkResult(actual, expected, testName, isNegative = false) {
-  if (!isNegative && actual === expected) {
+function checkResult(actual, expected, testName) {
+  if (actual === expected) {
     console.log(`✅ ${testName} Passed`);
-  } else if (isNegative && actual !== expected) {
-    console.log(`✅ ${testName} Failed as Expected`);
   } else {
     console.log(`❌ ${testName} Failed`);
     console.log("Expected:", expected);
     console.log("Actual  :", actual);
   }
 }
-
 
 /* ===================================================
    ✅ POSITIVE FUNCTIONAL TEST CASES (24) 
@@ -365,4 +362,4 @@ test("Neg_Fun_0010", async ({ page }) => {
     "ඔයාගේ ලැප්ටොප් එකේ තියෙන final project file එක මට ඉක්මනට email කරන්න පුළුවන්ද?";
   checkResult(actual, expected, "Neg_Fun_0010", true);
   expect(actual).toBe(expected);
-});S
+});

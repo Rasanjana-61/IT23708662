@@ -6,3 +6,6 @@ node_modules/
 /blob-report/npx
 /playwright/.cache/
 /playwright/.auth/
+
+# Playwright
+/blob-report/
