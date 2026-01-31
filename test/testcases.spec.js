@@ -363,3 +363,13 @@ test("Neg_Fun_0010", async ({ page }) => {
   checkResult(actual, expected, "Neg_Fun_0010", true);
   expect(actual).toBe(expected);
 });
+
+test("Pos_UI_0001 : The system makes it easy to find Singlish letters for Sinhala.", async ({ page }) => {
+  const singlish = `mama adha campus yanavaa.`;
+  const expected = `මම අද campus යනවා.`;
+
+  const actual = await getSinhalaTranslation(page, singlish);
+  checkResult(actual, expected, "Pos_UI_0001");
+
+  expect(actual).toBe(expected);
+});
