@@ -17,15 +17,16 @@ async function getSinhalaTranslation(page, singlishText) {
 // ================= Result Checker =================
 function checkResult(actual, expected, testName, isNegative = false) {
   if (!isNegative && actual === expected) {
-    console.log(✅ ${testName} Passed);
+    console.log(`✅ ${testName} Passed`);
   } else if (isNegative && actual !== expected) {
-    console.log(✅ ${testName} Failed as Expected);
+    console.log(`✅ ${testName} Failed as Expected`);
   } else {
-    console.log(❌ ${testName} Failed);
+    console.log(`❌ ${testName} Failed`);
     console.log("Expected:", expected);
     console.log("Actual  :", actual);
   }
 }
+
 
 /* ===================================================
    ✅ POSITIVE FUNCTIONAL TEST CASES (24) 
