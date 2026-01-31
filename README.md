@@ -176,34 +176,6 @@ This will open an interactive HTML report in your browser showing:
 
 ---
 
-## 🧪 Test Case Examples
-
-### Example 1: Simple Daily Sentence (Pos_Fun_0001)
-```javascript
-Input: "mama adha campus yanavaa"
-Expected: "මම අද campus යනවා."
-```
-
-### Example 2: Mixed English Technical Terms (Pos_Fun_0015)
-```javascript
-Input: "mata java code eka email karanna puluvandha?"
-Expected: "මට java code එක email කරන්න පුළුවන්ද?"
-```
-
-### Example 3: Misspelled Word (Neg_Fun_0001)
-```javascript
-Input: "mama adha cmpus yanavaa" (misspelled "campus")
-Expected: Should NOT match "මම අද කැම්පස් යනවා."
-```
-
-### Example 4: Real-time UI Update (Pos_UI_0001)
-```javascript
-Action: Type "mama adha campus yanavaa"
-Expected: "මම අද campus යනවා."
-```
-
----
-
 ## ⚙️ Configuration
 
 The `playwright.config.js` file contains:
