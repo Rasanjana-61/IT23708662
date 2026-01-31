@@ -261,7 +261,7 @@ test("Pos_Fun_0024", async ({ page }) => {
 });
 
 /* ===================================================
-   ❌ NEGATIVE FUNCTIONAL TEST CASES (11)
+   ❌ NEGATIVE FUNCTIONAL TEST CASES (10)
 =================================================== */
 
 test("Neg_Fun_0001", async ({ page }) => {
