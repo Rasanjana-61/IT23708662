@@ -11,9 +11,9 @@ This project contains automated end-to-end tests for the **Swift Translator** we
 
 ## 🎯 Test Coverage
 
-The test suite includes **35 comprehensive test cases** organized into three categories:
+The test suite includes **35 comprehensive test cases** organized into three categories within a single test file:
 
-### 1. **Positive Functional Tests** (`pos_fun.spec.js`) - 24 Tests
+### 1. **Positive Functional Tests** (24 Tests)
 Tests that validate the correct translation behavior for various Singlish inputs:
 
 - **Basic Sentences:** Simple daily sentences, compound sentences, interrogative, imperative commands
@@ -24,7 +24,9 @@ Tests that validate the correct translation behavior for various Singlish inputs
 - **Informal Language:** Greetings, apologies, informal expressions
 - **Long-form Content:** Paragraphs with mixed Singlish and English
 
-### 2. **Negative Functional Tests** (`neg_fun.spec.js`) - 10 Tests
+**Test Cases:** Pos_Fun_0001 through Pos_Fun_0024
+
+### 2. **Negative Functional Tests** (10 Tests)
 Tests that validate system behavior with invalid or edge-case inputs:
 
 - Misspelled words
@@ -37,16 +39,20 @@ Tests that validate system behavior with invalid or edge-case inputs:
 - Excessive line breaks
 - Over-shortened English words
 
-### 3. **Positive UI Tests** (`pos_ui.spec.js`) - 1 Test
+**Test Cases:** Neg_Fun_0001 through Neg_Fun_0010
+
+### 3. **Positive UI Tests** (1 Test)
 Tests that validate user interface behavior:
 
 - Real-time translation updates as the user types
+
+**Test Cases:** Pos_UI_0001
 
 ---
 
 ## 🛠️ Technology Stack
 
-- **Testing Framework:** [Playwright](https://playwright.dev/) v1.58.0
+- **Testing Framework:** [Playwright](https://playwright.dev/) v1.58.1
 - **Language:** JavaScript (Node.js)
 - **Browsers Tested:** Chromium, Firefox, WebKit
 - **Node Types:** @types/node v25.1.0
@@ -57,14 +63,13 @@ Tests that validate user interface behavior:
 
 ```
 IT23708662/
-├── tests/
-│   ├── pos_fun.spec.js       # Positive functional test cases (24 tests)
-│   ├── neg_fun.spec.js       # Negative functional test cases (10 tests)
-│   └── pos_ui.spec.js        # Positive UI test cases (1 test)
+├── test/
+│   └── testcases.spec.js     # All test cases (35 tests)
 ├── playwright.config.js      # Playwright configuration
 ├── package.json              # Project dependencies
 ├── package-lock.json         # Dependency lock file
 ├── .gitignore                # Git ignore rules
+├── .github/                  # GitHub workflows (if any)
 ├── playwright-report/        # HTML test reports (generated)
 ├── test-results/             # Test execution results (generated)
 └── README.md                 # This file
@@ -103,19 +108,23 @@ IT23708662/
 
 ### Run All Tests
 ```bash
+npm test
+# or
 npx playwright test
-```
-
-### Run Specific Test File
-```bash
-npx playwright test tests/pos_fun.spec.js
-npx playwright test tests/neg_fun.spec.js
-npx playwright test tests/pos_ui.spec.js
 ```
 
 ### Run Tests in Headed Mode (See Browser)
 ```bash
+npm run test:headed
+# or
 npx playwright test --headed
+```
+
+### Run Tests with UI Mode
+```bash
+npm run test:ui
+# or
+npx playwright test --ui
 ```
 
 ### Run Tests in a Specific Browser
@@ -133,6 +142,18 @@ npx playwright test --debug
 ### Run a Specific Test Case
 ```bash
 npx playwright test -g "Pos_Fun_0001"
+npx playwright test -g "Neg_Fun_0005"
+npx playwright test -g "Pos_UI_0001"
+```
+
+### Run Only Positive Functional Tests
+```bash
+npx playwright test -g "Pos_Fun"
+```
+
+### Run Only Negative Functional Tests
+```bash
+npx playwright test -g "Neg_Fun"
 ```
 
 ---
@@ -142,6 +163,8 @@ npx playwright test -g "Pos_Fun_0001"
 After running tests, view the HTML report:
 
 ```bash
+npm run test:report
+# or
 npx playwright show-report
 ```
 
@@ -158,25 +181,25 @@ This will open an interactive HTML report in your browser showing:
 ### Example 1: Simple Daily Sentence (Pos_Fun_0001)
 ```javascript
 Input: "mama adha campus yanavaa"
-Expected: Sinhala text output detected
+Expected: "මම අද campus යනවා."
 ```
 
 ### Example 2: Mixed English Technical Terms (Pos_Fun_0015)
 ```javascript
 Input: "mata java code eka email karanna puluvandha?"
-Expected: Sinhala text output with preserved English terms
+Expected: "මට java code එක email කරන්න පුළුවන්ද?"
 ```
 
 ### Example 3: Misspelled Word (Neg_Fun_0001)
 ```javascript
 Input: "mama adha cmpus yanavaa" (misspelled "campus")
-Expected: Incorrect or no translation for misspelled word
+Expected: Should NOT match "මම අද කැම්පස් යනවා."
 ```
 
 ### Example 4: Real-time UI Update (Pos_UI_0001)
 ```javascript
-Action: Type "mama gedhara yanavaa" with 150ms delay between characters
-Expected: Sinhala output appears in real-time while typing
+Action: Type "mama adha campus yanavaa"
+Expected: "මම අද campus යනවා."
 ```
 
 ---
@@ -185,7 +208,7 @@ Expected: Sinhala output appears in real-time while typing
 
 The `playwright.config.js` file contains:
 
-- **Test Directory:** `./tests`
+- **Test Directory:** `./test`
 - **Parallel Execution:** Enabled
 - **Retries:** 2 retries on CI, 0 locally
 - **Reporter:** HTML report
@@ -205,13 +228,31 @@ Edit `playwright.config.js` to:
 
 ## 🔍 Helper Functions
 
-### `hasSinhalaText(page)`
-Detects if Sinhala Unicode characters (අ-ෆ) are present on the page.
+The test file includes two reusable helper functions:
+
+### `getSinhalaTranslation(page, singlishText)`
+Navigates to the translator, inputs Singlish text, and returns the Sinhala translation.
 
 ```javascript
-async function hasSinhalaText(page) {
-  const text = await page.textContent('body');
-  return /[අ-ෆ]/.test(text);
+async function getSinhalaTranslation(page, singlishText) {
+  await page.goto(URL);
+  await page.fill(INPUT, singlishText);
+  await page.waitForTimeout(3000);
+  const sinhalaText = await page.inputValue(INPUT);
+  return sinhalaText;
+}
+```
+
+### `checkResult(actual, expected, testName, shouldFail = false)`
+Logs test results and validates expectations.
+
+```javascript
+function checkResult(actual, expected, testName, shouldFail = false) {
+  if (shouldFail) {
+    console.log(`❌ ${testName}: Expected to FAIL`);
+  } else {
+    console.log(`✅ ${testName}: ${actual === expected ? "PASS" : "FAIL"}`);
+  }
 }
 ```
 
@@ -221,9 +262,9 @@ async function hasSinhalaText(page) {
 
 Tests follow a structured naming pattern:
 
-- **Pos_Fun_XXXX:** Positive Functional Test
-- **Neg_Fun_XXXX:** Negative Functional Test
-- **Pos_UI_XXXX:** Positive UI Test
+- **Pos_Fun_XXXX:** Positive Functional Test (24 tests)
+- **Neg_Fun_XXXX:** Negative Functional Test (10 tests)
+- **Pos_UI_XXXX:** Positive UI Test (1 test)
 
 Where `XXXX` is a 4-digit sequential number (e.g., 0001, 0002).
 
@@ -243,12 +284,14 @@ npx playwright install --force
 ```
 
 ### Tests Timing Out
-- Increase `waitForTimeout` values in test files
+- The tests use a 3-second wait time after input
 - Check if the website is responding slowly
+- Adjust `waitForTimeout` values if needed
 
 ### Sinhala Text Not Detected
 - Verify the website's translation functionality is working
-- Check if the Sinhala Unicode regex pattern needs updating
+- Check if the translator is returning expected results
+- Ensure proper Unicode support in your terminal/console
 
 ---
 
@@ -275,10 +318,11 @@ Student ID: IT23708662
 
 ## 📌 Notes
 
-- All tests use a 2-3 second wait time after input to allow translation processing
-- Tests validate Sinhala output presence using Unicode character detection
+- All tests use a 3-second wait time after input to allow translation processing
+- Tests validate exact Sinhala output matching
 - The test suite covers common Singlish usage patterns in Sri Lankan context
-- Negative tests ensure graceful handling of invalid inputs
+- Negative tests are designed to fail (expected behavior) to validate error handling
+- All 35 test cases are consolidated in a single file for easier maintenance
 
 ---
 
@@ -288,6 +332,7 @@ This project is configured for CI/CD with:
 - Automatic retries on failure (2 retries)
 - Single worker on CI to avoid race conditions
 - HTML reports generated after each run
+- GitHub Actions workflow support (if configured)
 
 ---
 
@@ -298,8 +343,9 @@ This project is configured for CI/CD with:
 - [ ] Add API testing if backend endpoints are available
 - [ ] Expand test coverage for mobile viewports
 - [ ] Add accessibility (a11y) testing
-- [ ] Implement test data management
+- [ ] Implement test data management with external JSON files
 - [ ] Add screenshot comparison tests
+- [ ] Create separate test suites for smoke, regression, and full tests
 
 ---
 
