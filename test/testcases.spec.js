@@ -307,7 +307,7 @@ test("Neg_Fun_0005", async ({ page }) => {
     "oyaalaa okkoma libry enavada?",
   );
   const expected =
-    "අද lecture එක හරි අමරුඉ නිසා මට සමහර දෙවල් තෙරුම් ගන්න අමරුයි කියල හිතෙනවා";
+    "ඔයාලා ඔක්කොම library එනවද?";
   checkResult(actual, expected, "Neg_Fun_0005", true);
   expect(actual).toBe(expected);
 });
